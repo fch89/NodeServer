@@ -1,0 +1,27 @@
+{
+  "name": "node-server",
+  "version": "1.0.0",
+  "description": "This is a simple Node (Mock API) server",
+  "main": "index.js",
+  "scripts": {
+    "startServer": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Poorboy007/NodeServer"
+  },
+  "keywords": [
+    "node",
+    "mock",
+    "node-api",
+    "node-server",
+    "NodeServer"
+  ],
+  "author": "LiuFch <332197723@qq.com>",
+  "license": "ISC",
+  "dependencies": {
+    "apicache": "^1.5.3",
+    "express": "^4.17.1"
+  }
+}
