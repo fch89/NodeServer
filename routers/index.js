@@ -2,7 +2,9 @@
 const express = require('express')
 //
 const router = express.Router()
-//
+//引入user router
+const user =require('./user.js')(router)
+
 router.get('/', (req, res, next) => {
   res.json({
     status: '0',
@@ -12,4 +14,5 @@ router.get('/', (req, res, next) => {
   })
 })
 //
+
 module.exports =router;

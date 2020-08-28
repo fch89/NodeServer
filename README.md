@@ -1,14 +1,17 @@
 # NodeServer
 
-### Node: 最简单的node server
+### Express 集成 Mock 实现Api服务器
 #### 项目结构
 <img src="./img/1.png" height="234"/>  <br />
 
 文件  <br />
+* mock
+* --userData.js
 * pubilc
 * --holle.txt
 * routers
 * --index.js
+* --user.js
 * index.js
 * package.json
 
@@ -19,6 +22,8 @@ $ node -v
 ```
 <img src="./img/2.png" width="360" />  <br />
 
+#### mockjs wiki
+* mockjs 的wiki https://github.com/nuysoft/Mock/wiki
 
 ### index.js
 ```
@@ -31,7 +36,7 @@ const cache = apicache.middleware
 // 引入路由
 const routes = require('./routers')
 //实例化
-const app = express() 
+const app = express()
 
 // 跨域设置
 app.all("*", function (req, res, next) {
@@ -56,10 +61,21 @@ app.use('/static', express.static(path.resolve(__dirname, "public")))
 //注册路由配置
 app.use(routes)
 
-//启动监听端口
-const port = 3000;
-app.listen(port, () => {
-  console.log(`server running @ http://localhost:${port}`)
+//启动监听端口 
+app.set('port', process.env.PORT || 3000);
+const server = app.listen(app.get('port'), () => {
+  console.log('┌───────────────────────────────────────────────┐');
+  console.log('│                                               │');
+  console.log('│   Serving!                                    │');
+  console.log('│                                               │');
+  console.log('│   - Local:            http://localhost:' + app.get('port') + '   │');
+  console.log('│   - On Your Network:  http://127.0.0.1:' + app.get('port') + '   │');
+  console.log('│                                               │');
+  console.log('│   Express server listening on:                │');
+  console.log('│                                               │');
+  console.log('│   - port:               ' + server.address().port + '                  │');
+  console.log('│                                               │');
+  console.log('└───────────────────────────────────────────────┘');
 })
 ```
 ### routers/index.js
@@ -69,7 +85,9 @@ app.listen(port, () => {
 const express = require('express')
 //
 const router = express.Router()
-//
+//引入user router
+const user =require('./user.js')(router)
+
 router.get('/', (req, res, next) => {
   res.json({
     status: '0',
@@ -109,14 +127,19 @@ module.exports =router;
   "license": "ISC",
   "dependencies": {
     "apicache": "^1.5.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mockjs": "^1.1.0"
   }
 }
 
 ```
 
 如果不想增加更多配置, 可以命令行 node index 不用配置package.json
-
+###  使用示例
+#### 安装
+```
+$ npm install
+```
 #### 启动
 ```
 $ npm run startServer //启动server
@@ -130,3 +153,9 @@ $ npm run startServer //启动server
 * http://localhost:3000/static/holle.txt
 
 <img src="./img/5.png" width="396" />  <br />
+
+### User 测试数据访问
+
+* http://localhost:3000/api/user
+
+<img src="./img/6.png" width="396" />  <br />

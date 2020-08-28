@@ -22,6 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "apicache": "^1.5.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mockjs": "^1.1.0"
   }
 }

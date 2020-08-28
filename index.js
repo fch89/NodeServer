@@ -7,7 +7,7 @@ const cache = apicache.middleware
 // 引入路由
 const routes = require('./routers')
 //实例化
-const app = express() 
+const app = express()
 
 // 跨域设置
 app.all("*", function (req, res, next) {
@@ -32,8 +32,19 @@ app.use('/static', express.static(path.resolve(__dirname, "public")))
 //注册路由配置
 app.use(routes)
 
-//启动监听端口
-const port = 3000;
-app.listen(port, () => {
-  console.log(`server running @ http://localhost:${port}`)
+//启动监听端口 
+app.set('port', process.env.PORT || 3000);
+const server = app.listen(app.get('port'), () => {
+  console.log('┌───────────────────────────────────────────────┐');
+  console.log('│                                               │');
+  console.log('│   Serving!                                    │');
+  console.log('│                                               │');
+  console.log('│   - Local:            http://localhost:' + app.get('port') + '   │');
+  console.log('│   - On Your Network:  http://127.0.0.1:' + app.get('port') + '   │');
+  console.log('│                                               │');
+  console.log('│   Express server listening on:                │');
+  console.log('│                                               │');
+  console.log('│   - port:               ' + server.address().port + '                  │');
+  console.log('│                                               │');
+  console.log('└───────────────────────────────────────────────┘');
 })
